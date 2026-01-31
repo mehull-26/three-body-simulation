@@ -1,7 +1,9 @@
 # Three-Body Simulation
 
 A Python-based gravitational simulation of the three-body problem with real-time visualization.
-![alt text](Figure_1.png)![alt text](Figure_2.png)
+<img src="Figure_1.png" width="400">
+<img src="Figure_2.png" width="400">
+
 ## Requirements
 
 - Python 3.x
