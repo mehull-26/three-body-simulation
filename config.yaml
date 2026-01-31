@@ -1,0 +1,17 @@
+simulation:
+  dt: 0.002
+  steps: 150000
+  G: 5.0
+
+bodies:
+  - mass: 1.0
+    position: [1.0, 0.0]
+    velocity: [0.0, 0.6]
+
+  - mass: 1.0
+    position: [-1.0, 0.0]
+    velocity: [0.0, -0.6]
+
+  - mass: 1.0
+    position: [0.0, 1.732]
+    velocity: [-0.6, 0.0]
