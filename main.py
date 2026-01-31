@@ -57,7 +57,7 @@ def calculate_force(b1, b2, G):
     pos1 = b1.position
     pos2 = b2.position
 
-    eps = 1e-3
+    eps = 1e-2
     r = np.linalg.norm(pos1 - pos2) + eps
 
     return (pos2 - pos1) * G * m1 * m2 / r**3
@@ -68,17 +68,30 @@ def run_simulation(bodies, config):
     steps = config["simulation"]["steps"]
     G = config["simulation"]["G"]
 
+    # Store position history for trails
+    trails = [[] for _ in range(len(bodies))]
+    trail_lines = [ax.plot([], [], alpha=0.5)[0] for _ in range(len(bodies))]
+
     for j in range(0, steps):
         forces = resolve_forces(bodies, G)
         for i in range(0, 3):
             bodies[i].apply_force(forces[i], dt)
             bodies[i].update_position(dt)
 
+            # Add current position to trail
+            trails[i].append(bodies[i].position.copy())
+
         positions = [body.position for body in bodies]
         x = [p[0] for p in positions]
         y = [p[1] for p in positions]
 
         scat.set_offsets(list(zip(x, y)))
+
+        # Update trails
+        for i in range(len(bodies)):
+            trail_array = np.array(trails[i])
+            trail_lines[i].set_data(trail_array[:, 0], trail_array[:, 1])
+
         ax.relim()
         ax.autoscale_view()
         plt.pause(0.01)
